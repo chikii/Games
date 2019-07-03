@@ -1,0 +1,67 @@
+from array import *
+
+def print_array(arr):
+    for i in arr:
+        for j in i:
+            print(j,end="   ")
+        print()
+
+N = int(input())        #take input from user
+
+chakrah = [x[:] for x in [[0]*N]*N]
+counter = 1              
+n = int(N/2)
+powerpoints = str(1+int((N*N)/11))  # 1st bloack is always a powerpoint and otherblocks divisible by 11 is pp.
+list_pp = [0,0]         #indices of powerpoint
+row = colm = 0          #current row and colm
+end_row = end_colm = 0  # end row and colm
+
+for i in range(0,n,1):
+    row = colm = i
+
+    end_colm = N-i-1
+    while(colm<end_colm):
+        chakrah[row][colm] = counter
+        if counter%11 == 0:
+            list_pp.append(row)
+            list_pp.append(colm)
+        counter+=1
+        colm+=1
+    
+    end_row = N-i-1
+    while(row<end_row):
+        chakrah[row][colm] = counter
+        if counter%11 == 0:
+            list_pp.append(row)
+            list_pp.append(colm)
+        counter+=1
+        row+=1
+
+    end_colm = i
+    while(colm>end_colm):
+        chakrah[row][colm] = counter
+        if counter%11 == 0:
+            list_pp.append(row)
+            list_pp.append(colm)
+        counter+=1
+        colm-=1
+
+    end_row = i
+    while(row>end_row):
+        chakrah[row][colm] = counter
+        if counter%11 == 0:
+            list_pp.append(row)
+            list_pp.append(colm)
+        counter+=1
+        row-=1    
+
+if N*N % 2 == 1:
+    chakrah[n][n] = N*N
+
+print_array(chakrah)
+print("Total powerpoints : "+ powerpoints)
+for i in list_pp:
+    print(i,end = ' ')
+    #print('({},{})'.format(i,i+1))
+    
+
